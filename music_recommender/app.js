@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 var follow = require('./routes/follow');
 var listen = require('./routes/listen');
 var recommendations = require('./routes/recommendations');
@@ -29,7 +28,6 @@ app.use('/', routes);
 app.use('/follow', follow);
 app.use('/listen', listen);
 app.use('/recommendations', recommendations);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -62,9 +60,13 @@ app.use(function(err, req, res, next) {
     });
 });
 
-// Load Musics
-var load_musics = require('./scripts/load_musics');
-load_musics.load_musics();
+console.log('[Log] Start Load.');
+//Database configuration
+global.mongo_address = 'mongodb://127.0.0.1:27017/test';
 
+//Start a fresh new database (Comment to freeze the web application).
+//var start_fresh_database = require('./scripts/start_fresh_database');
+//start_fresh_database.start_fresh_database();
+console.log('[Log] End Load.');
 
 module.exports = app;

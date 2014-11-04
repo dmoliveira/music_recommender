@@ -7,13 +7,7 @@ function get_connection(mongo_address) {
 	try {
 		mongoose.connect(mongo_address);
 	} catch (e) {
-		mongoose.connection.close();
-		mongoose.createConnection(mongo_address, function(err){
-		    if (err) throw err;
-		    console.log ('Successfully connected to MongoDB');
-		    console.log(mongoose.connection.host);
-		    console.log(mongoose.connection.port);
-		});
+		//Do nothing.
 	}
 
 	return mongoose
@@ -21,48 +15,37 @@ function get_connection(mongo_address) {
 
 module.exports = {
 
-	add_to_database: function (mongo_address, document_schema, json_document) {
+	add_to_database: function (mongo_address, document_model, json_document) {
 
 		var mongoose = get_connection(mongo_address);
 
-		var document_instance = new document_schema(json_document);
+		var document_instance = new document_model(json_document);
 
 		document_instance.save(function (err, document_instance) {
 	  		if (err) return console.error(err);
-	  		console.log('Added Document: ' + document_instance);
+	  			console.log('Added Document: ' + document_instance);
 			}
 		); 
 		
 	},
-	remove_documents: function(mongo_address, document_schema, id) {
+	remove_documents: function(mongo_address, document_model, condition) { 
 		var mongoose = get_connection(mongo_address);
-		new document_schema({id: -1}).find({id: id}, function(err,docs){
-			if(docs.length > 0) {
-				docs.remove();
+		document_model.remove(condition, function(err){});
+	},
+	add_attribute_to_user: function(mongo_address, user_model, condition, attribute_name, attribute_value) {
+		var mongoose = get_connection(mongo_address);
+		user_model.find(condition, function(err, docs){
+			for (var i = 0; i < docs.length; i++) {
+				doc = docs[i];
+				doc[attribute_name].set(doc[attribute_name].length, attribute_value);
+				doc.save();
 			}
 		});
 	},
-	add_music_to_user: function(mongo_address, document_schema, user_id, music_id) {
-
+	find_documents: function(mongo_address, document_model, condition, callback) {
 		var mongoose = get_connection(mongo_address);
-		new document_schema({id: -1}).find({id: user_id}, function(err,docs){
-			if(docs.length > 0) {
-				document_from_database = docs[0];
-				var new_heard_music_list = document_from_database['heard_music_list'];
-				new_heard_music_list.push(music_id);
-
-				json_document = {id: user_id, 
-								 follow_user_list: document_from_database['follow_user_list'],
-								 follow_user_list: new_heard_music_list};
-
-				var document_instance = new document_schema(json_document);
-				document_instance.save(function (err, document_instance) {
-			  		if (err) return console.error(err);
-			  		console.log('Added Document: ' + document_instance);
-					}
-				);
-	    		docs.remove();
-    		}
+		document_model.find(condition, function(err, docs) {
+			callback.execute(docs);
 		});
 	},
 	close_connection: function() {
@@ -70,6 +53,6 @@ module.exports = {
 		mongoose.connection.close();
 	},
 	get_mongoose: function() {
-		return get_connection();
+		return get_connection(global.mongo_address);
 	}
 };

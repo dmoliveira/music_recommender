@@ -1,34 +1,22 @@
 #!/bin/sh
-# Load users songs
+# Load users songs by HTTP Request POST
 
-# User One
-curl --data "user_id=1&music_id=3" http://localhost:3000/listen
-curl --data "user_id=1&music_id=4" http://localhost:3000/listen
-curl --data "user_id=1&music_id=9" http://localhost:3000/listen
+# User A
+curl --data "user_id=a&music_id=m2" http://localhost:3000/listen
+curl --data "user_id=a&music_id=m6" http://localhost:3000/listen
 
-# User Two
-curl --data "user_id=2&music_id=2" http://localhost:3000/listen
-curl --data "user_id=2&music_id=11" http://localhost:3000/listen
-curl --data "user_id=2&music_id=9" http://localhost:3000/listen
-curl --data "user_id=2&music_id=6" http://localhost:3000/listen
+# User B
+curl --data "user_id=b&music_id=m4" http://localhost:3000/listen
+curl --data "user_id=b&music_id=m9" http://localhost:3000/listen
 
-# User Three
-curl --data "user_id=3&music_id=5" http://localhost:3000/listen
-curl --data "user_id=3&music_id=6" http://localhost:3000/listen
-curl --data "user_id=3&music_id=7" http://localhost:3000/listen
-curl --data "user_id=3&music_id=8" http://localhost:3000/listen
+# User C
+curl --data "user_id=c&music_id=m8" http://localhost:3000/listen
+curl --data "user_id=c&music_id=m7" http://localhost:3000/listen
 
-# User Four
-curl --data "user_id=4&music_id=12" http://localhost:3000/listen
-curl --data "user_id=4&music_id=11" http://localhost:3000/listen
-curl --data "user_id=4&music_id=2" http://localhost:3000/listen
-curl --data "user_id=4&music_id=5" http://localhost:3000/listen
-curl --data "user_id=4&music_id=9" http://localhost:3000/listen
-curl --data "user_id=4&music_id=6" http://localhost:3000/listen
+# User D
+curl --data "user_id=d&music_id=m2" http://localhost:3000/listen
+curl --data "user_id=d&music_id=m6" http://localhost:3000/listen
+curl --data "user_id=d&music_id=m7" http://localhost:3000/listen
 
-# User Five
-curl --data "user_id=5&music_id=1" http://localhost:3000/listen
-curl --data "user_id=5&music_id=3" http://localhost:3000/listen
-curl --data "user_id=5&music_id=7" http://localhost:3000/listen
-curl --data "user_id=5&music_id=9" http://localhost:3000/listen
-curl --data "user_id=5&music_id=11" http://localhost:3000/listen
+# User E
+curl --data "user_id=e&music_id=m11" http://localhost:3000/listen

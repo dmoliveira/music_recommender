@@ -1,19 +1,22 @@
 var express = require('express');
 var router = express.Router();
-var mongo_address = 'mongodb://127.0.0.1:27017/test';
-var mongodb_api = require('../model/mongodb_api');
-var follow_schema = require('../model/follow_schema');
 
+var mongodb_api = require('../model/mongodb_api');
+var user_model = require('../model/user_model'); 
+
+/* Page to receive user's followers */
 router.post('/', function(req, res) {
 
-	var follow_schema_instance = follow_schema.get_follow_schema(mongo_address); 
+	mongodb_api.add_attribute_to_user(
+  		global.mongo_address, 
+  		user_model.get_user_model(global.mongo_address), 
+  		{id: req.body['from_user_id']},
+  		'follow_user_list', 
+  		req.body['to_user_id']);
 
-	mongodb_api.add_to_database(
-  		mongo_address, 
-  		follow_schema_instance, 
-  		req.body);
-
-	res.send('Added follow!'); 
+	res.send('[Response ' + new Date() + '] Added follow ' 
+		+ req.body['to_user_id'] + ' to user ' 
+		+ req.body['from_user_id'] + '.\n'); 
 });
 
 module.exports = router;
