@@ -1,7 +1,6 @@
 # Music Recommendation System
-#### Author: Diego Marinho de Oliveira - 2014
 --
-![](./music_recommender.png)
+![](./music_recommender.png =509x400)
 **Description:** This music recommendation system (MRS) aims only to illustrate the capabilities of creating a Web system using technologies related to JavaScript and NoSQL database. To really check a real MRS or know more about recommendation systems, please visit [Last FM](http://www.last.fm/) and [Recommendation Systems @Netflix](http://www.slideshare.net/xamat/qcon-sf-2013-machine-learning-recommender-systems-netflix-scale).
 
 ## Tech Overview
@@ -49,7 +48,7 @@ nodemon ./bin/www
 
 ### How to Run Initial Scripts
 After starting the web-server, it is necessary to run two scripts to make HTTP requests: one to populate the database with user's followers and other to add initial user's musics.
-* **load_follows: ** 
+* **load_follows:** 
 ```
 sh ./load_follows.sh
 ```
@@ -89,9 +88,9 @@ The recommendation requisition  is performed via a GET request and therefore can
 ### Boost by Similarity and Popularity (Strategy A)
 Creates a feature vector from the tags present in the songs that have already been heard by the user. From this information, we seek the database for similar songs making up the weighting of tags by their frequency.
 
-- By default it is used -
+* Used by default.
 
 ### Boost by Followers (Strategy B)
 Explores music of the followers of the users and makes a ranking by frequent tags.
 
-- Not implemented yet. -
+* Not implemented yet.
